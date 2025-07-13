@@ -52,7 +52,7 @@ public class SavingTasks {
         Tasks new_task = new Tasks(description);
         tasks.add(new_task);
 
-        saveTasks(tasks);
+        saveTasks();
         System.out.println("Task added successfully, ID: " + new_task.getId());
 
     }
@@ -84,9 +84,17 @@ public class SavingTasks {
     }
 
         // now listing all the tasks
+        public void ListTasks(String type) {
+          for(Tasks task : tasks) {
+              String status = task.getStatus().toString().strip();
+              if(type.equals("All") || status.equals(type)) {
+                  System.out.println(task.toString());
+              }
+          }
+        }
 
 
-    public void saveTasks(List<Tasks> tasks) throws IOException {
+    public void saveTasks() throws IOException {
 
         try (BufferedWriter bufferedWriter = Files.newBufferedWriter(FILE_PATH)) {
             bufferedWriter.write("[\n");
