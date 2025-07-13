@@ -11,6 +11,7 @@ public class Tasks {
     private Status status;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+    private static Integer lastId = 0;
 
     private final DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
 
@@ -23,7 +24,11 @@ public class Tasks {
     }
 
     public Tasks(String description) {
+        this.id = ++lastId;
         this.description = description;
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
+        this.status = Status.TODO;
     }
 
 
@@ -98,7 +103,7 @@ public class Tasks {
     }
 
     // now UnEscaping the JSON string using fromJSON method, we can use jq tool but external tools are not allowed
-    public static void fromJson(String json) {
+    public static Tasks fromJson(String json) {
         // First, we will replace all the curly brackets by double quotes ""
         json = json.replace("{" , "").replace("}" , "");
         // now we will use delimiter to split the JSON in words and store in String Array and Regex we will use is ","
@@ -123,8 +128,11 @@ public class Tasks {
         task.createdAt = LocalDateTime.parse(StrCreatedAt );
         task.updatedAt = LocalDateTime.parse(StrUpdatedAt);
 
+        if(Integer.parseInt(id) > lastId) {
+            lastId = Integer.parseInt(id);
+        }
 
-
+        return task;
     }
 
 
