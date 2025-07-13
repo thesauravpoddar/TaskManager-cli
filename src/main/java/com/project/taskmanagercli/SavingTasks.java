@@ -9,13 +9,14 @@ import java.nio.file.Path;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 
 // here we will write code to read, write and save tasks in JSON file
 
 public class SavingTasks {
     private static final Path FILE_PATH = Path.of("tasks.json");
-    private List<Tasks> tasks;
+    private final List<Tasks> tasks;
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ISO_DATE_TIME;
 
     public SavingTasks() {
@@ -46,18 +47,44 @@ public class SavingTasks {
         return stored_tasks;
     }
             // now we are going to add tasks
-    public void AddTask() throws IOException {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("please enter the description of the task");
-        String description = scanner.nextLine();
+    public void AddTask(String description) throws IOException {
 
         Tasks new_task = new Tasks(description);
         tasks.add(new_task);
 
         saveTasks(tasks);
-        System.out.println("Task added successfully");
+        System.out.println("Task added successfully, ID: " + new_task.getId());
 
     }
+
+    // implementing all other methods like update task , delete task , marksInProgress , mark done and all
+    public void UpdateTask(String id , String new_description) {
+        Tasks tasks1 = findTask(id).orElseThrow(() -> new IllegalArgumentException("Task with this is id" + id + "not found"));
+        tasks1.updateDescription(new_description);
+    }
+
+    public void DeleteTask(String id) {
+        Tasks tasks2 = findTask(id).orElseThrow(() -> new IllegalArgumentException("Task with this is id" + id + "not found"));
+        tasks.remove(tasks2);
+    }
+
+    public void markTaskInProgress(String id) {
+        Tasks tasks3 = findTask(id).orElseThrow(() -> new IllegalArgumentException("Task with this is id" + id + "not found"));
+        tasks3.marksInProgress();
+    }
+    public void markTaskAsDone(String id) {
+        Tasks tasks4 = findTask(id).orElseThrow(() -> new IllegalArgumentException("Task with this is id" + id + "not found"));
+        tasks4.markAsDone();
+    }
+
+    public Optional<Tasks> findTask(String id) {
+       return tasks.stream()
+                .filter(task -> task.getId().
+                        equals(Integer.parseInt(id))).findFirst();
+    }
+
+        // now listing all the tasks
+
 
     public void saveTasks(List<Tasks> tasks) throws IOException {
 
@@ -73,6 +100,7 @@ public class SavingTasks {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+
 
     }
 }

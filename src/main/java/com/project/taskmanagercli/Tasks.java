@@ -58,7 +58,7 @@ public class Tasks {
         this.updatedAt = LocalDateTime.now();
 
     }
-    public void marksDone() {
+    public void markAsDone() {
         this.status = Status.DONE;
         this.updatedAt = LocalDateTime.now();
     }
