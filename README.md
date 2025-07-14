@@ -15,6 +15,7 @@
 - 🧠 Intelligent CLI that understands commands like `add`, `list`, `remove`, etc.
 
 ---
+project url : https://github.com/thesauravpoddar/TaskManager-cli
 
 ## 📦 Project Structure
 
