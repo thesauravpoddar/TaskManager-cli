@@ -17,24 +17,6 @@
 ---
 project url : [https://github.com/thesauravpoddar/TaskManager-cli](https://roadmap.sh/projects/task-tracker)
 
-## 📦 Project Structure
-
-📁 taskmanagercli/
-│
-├── 📄 TaskManagerCliApplication.java # Entry point of the Spring Boot CLI app
-|
-├── 📄 Interecting_With_Cli.java # Handles user interaction in terminal
-|
-├── 📄 SavingTasks.java # Logic to manage tasks (CRUD, persist, filter)
-|
-├── 📄 Tasks.java # Task model class (id, desc, status, timestamps)
-|
-├── 📄 Status.java # Enum to define task status (TODO, IN_PROGRESS, DONE)
-|
-└── 📄 tasks.json # Auto-generated file for storing tasks
-
-
-
 ---
 
 ## 🛠️ Commands
